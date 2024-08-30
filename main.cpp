@@ -139,6 +139,7 @@ int main()
             cout << "El minimo comun multiplo es: " << resultado;
             break;
         case 11:
+            cout << "Hola mundo";
             break;
         case 13:
             cout << "Ingrese el primer numero para calcular: "; cin >> A;
