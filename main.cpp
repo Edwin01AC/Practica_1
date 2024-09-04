@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+bool EsVocal(char caracter);
 void RetirarDinero(int cantidad);
 void Patron(int cantidad);
 int Factorial(int numero);
@@ -11,11 +12,15 @@ bool esPrimo(int num);
 int MCD(int A, int B);
 int CalcularMCM(int A, int B);
 void EsPalindromo(int A, int B);
+int SumaPrimos(int num);
+int SumaDiagonal(int B);
+int MaximoPrimo(int n);
+void encontrarSerieCollatz(int k);
+void encontrarNumeroTriangular(int k);
 
 int main()
 {
-    short int opcion = 1, cantidad, mes, dia, hora1, hora2, numero, A, B, resultado = 1;
-    float E = 1.0;
+    short int opcion = 1;
 
     cout << "*  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *" << endl;
     cout << "*  Bienvenido a esta practica #1 del laboratorio.  *" << endl;
@@ -23,19 +28,27 @@ int main()
     cout << "\nA continuacion vera los tipos de problemas a resolver." << endl;
 
     while (opcion != 0) {
+        short int cantidad, mes, dia, hora1, hora2, numero, A, B, n = 1;
+        float E = 1.0;
         cout << "\nIngresa una de las siguientes opciones." << endl;
         cout << endl;
-        cout << "1. Retirar dinero." << endl;
-        cout << "2. Validar fecha." << endl;
-        cout << "3. Calcular hora." << endl;
-        cout << "4. Crear patron." << endl;
-        cout << "5. Hallar un valor aproximado de euler." << endl;
-        cout << "6. Hallar la suma de los numeros par de La secuencia de Fibonacci hasta un numero (n)." << endl;
-        cout << "7. Hallar la suma de los multiplos de dos numeros hasta un limite (n)." << endl;
-        cout << "8. Hallar la suma de cada digito de un numero elevado a si mismo como potencia." << endl;
-        cout << "9. Calcular el enesimo numero primo." << endl;
-        cout << "10. Calcular el minimo comun multiplo que hay desde 1 hasta un N numero ingresado." << endl;
-        cout << "13. Calcular un numero palindromo de la multiplicacion de dos numeros." << endl;
+        cout << "1. Verificar un tipo de caracter." << endl;
+        cout << "2. Retirar dinero." << endl;
+        cout << "3. Validar fecha." << endl;
+        cout << "4. Calcular hora." << endl;
+        cout << "5. Crear patron." << endl;
+        cout << "6. Hallar un valor aproximado de euler." << endl;
+        cout << "7. Hallar la suma de los numeros par de La secuencia de Fibonacci hasta un numero (n)." << endl;
+        cout << "8. Hallar la suma de los multiplos de dos numeros hasta un limite (n)." << endl;
+        cout << "9. Hallar la suma de cada digito de un numero elevado a si mismo como potencia." << endl;
+        cout << "10. Calcular el enesimo numero primo." << endl;
+        cout << "11. Calcular el minimo comun multiplo que hay desde 1 hasta un N numero ingresado." << endl;
+        cout << "12. Calcular el maximo factor primo de un numero." << endl;
+        cout << "13. Calcular la suma de los numero primos menores a N." << endl;
+        cout << "14. Calcular un numero palindromo de la multiplicacion de dos numeros." << endl;
+        cout << "15. Hallar la suma de las diagonales de una expiral." << endl;
+        cout << "16. Hallar la serie mas larga de una semilla menor a N, en la serie de Collatz." << endl;
+        cout << "17. calcular cual es el primer numero triangular que tiene mas de k divisores." << endl;
         cout << "0. Salir." << endl;
         cout << "Ingresa la opcion aca: "; cin >> opcion;
         cout << endl;
@@ -43,10 +56,23 @@ int main()
 
         switch (opcion) {
         case 1:
+            char caracter;
+            cout << "Ingrese un caracter: "; cin >> caracter;
+            if((caracter >= 65 && caracter <= 90) || (caracter >= 97 && caracter <= 122))
+            {
+                if(EsVocal(caracter))
+                    cout << caracter << " es una vocal" << endl;
+                else
+                    cout << caracter << " es una consonante" << endl;
+
+            }else
+                cout << caracter <<" no es una letra" << endl;
+            break;
+        case 2:
             cout << "Ingrese la cantidad a retirar: "; cin >> cantidad;
             RetirarDinero(cantidad);
             break;
-        case 2:
+        case 3:
             cout << "Ingresa un mes del año: "; cin >> mes;
             if (mes > 12)
                 cout << mes << " es un mes invalido" << endl;
@@ -65,7 +91,7 @@ int main()
                     cout << dia << "/" << mes << " es una fecha valida." << endl;
             }
             break;
-        case 3:
+        case 4:
             cout << "Ingrese la primer hora: "; cin >> hora1;
             if (hora1 >= 2400 || hora1 % 100 >= 60)
                 cout << hora1 << " es un tiempo invalido." << endl;
@@ -88,12 +114,12 @@ int main()
                 }
             }
             break;
-        case 4:
+        case 5:
             cout << "Ingrese la longitud del patron (debe ser impar): "; cin >> cantidad;
             Patron(cantidad);
             cout << endl;
             break;
-        case 5:
+        case 6:
             cout << "Ingrese el numero de elementos deseados para dar una aproximacion de euler: ";
             cin >> numero;
             for (int i = 1; i <= numero; i++){
@@ -101,22 +127,22 @@ int main()
             }
             cout << "El valor aproximado de euler es: " << E << endl;
             break;
-        case 6:
+        case 7:
             cout << "Ingrese un numero limite para hallar dicha suma en la secuencia: ";
             cin >> numero;
             cout << Fibonacci(numero);
             break;
-        case 7:
+        case 8:
             cout << "Ingrese el primer numero: "; cin >> A;
             cout << "Ingrese el segundo numero: "; cin >> B;
             cout << "Ingrese el numero hasta el cual desea que se sumen los multiplos: "; cin >> numero;
             MultiploComun(A, B, numero);
             break;
-        case 8:
+        case 9:
             cout << "Ingrese el numero para hallar dicha suma: "; cin >> numero;
             PotenciaDeUnNumero(numero);
             break;
-        case 9:
+        case 10:
             cout << "Ingrese el numero n primo que desea hallar: "; cin >> A;
             cantidad = 0;
             B = 2;
@@ -131,20 +157,37 @@ int main()
                 B++;
             }
             break;
-        case 10:
+        case 11:
             cout << "Ingrese el numero deseado para calcular los MCM desde el 1 hasta dicho numero: ";
             cin >> numero;
             for (int i = 1; i <= numero; i++)
-                resultado = CalcularMCM(resultado, i);
-            cout << "El minimo comun multiplo es: " << resultado;
+                n = CalcularMCM(n, i);
+            cout << "El minimo comun multiplo es: " << n;
             break;
-        case 11:
-            cout << "Hola mundo";
+        case 12:
+            cout << "Ingresa un numero: "; cin >> B;
+            cout << "El maximo factor primo de " << B << " es " << MaximoPrimo(B);
             break;
         case 13:
+            cout << "Ingrese un numero: "; cin >> A;
+            cout << "La suma de todos los numeros primos menores a " << A << " es: " << SumaPrimos(A);
+            break;
+        case 14:
             cout << "Ingrese el primer numero para calcular: "; cin >> A;
             cout << "Ingrese el segundo numero para calcular: "; cin >> B;
             EsPalindromo(A, B);
+            break;
+        case 15:
+            cout << "Ingrese la dimension de la espiral: "; cin >> B;
+            cout << "La suma de las diagonales con espiral de dimension " << B << " es: " << SumaDiagonal(B);
+            break;
+        case 16:
+            cout << "Ingrese dicho numero para calcular la serie de Collatz: "; cin >> B;
+            encontrarSerieCollatz(B);
+            break;
+        case 17:
+            cout << "Ingrese el numero k para calcular: "; cin >> B;
+            encontrarNumeroTriangular(B);
             break;
         case 0:
             cout << "Gracias por usar el programa de la practica 1, tenga un feliz dia" << endl;
@@ -156,6 +199,17 @@ int main()
         }
     }
     return 0;
+}
+
+bool EsVocal(char caracter){
+    if(caracter>=97)
+        caracter-=32;
+
+    if(caracter=='A'|| caracter=='E'|| caracter=='I'
+        || caracter=='O'||caracter=='U')
+        return true;
+    else
+        return false;
 }
 
 void RetirarDinero(int cantidad) {
@@ -330,5 +384,130 @@ void EsPalindromo(int A, int B) {
         cout << "Por lo tanto es palindromo." << endl;
     } else {
         cout << "Por lo tanto no es palindromo." << endl;
+    }
+}
+
+int SumaPrimos(int num) {
+    int suma = 0;
+    for (int i = 2; i < num; i++) {
+        if (esPrimo(i)) {
+            suma += i;
+        }
+    }
+    return suma;
+}
+
+int SumaDiagonal(int B) {
+    int suma = 0;
+    int i = 1;
+    int k = 2;
+    int num = 3;
+
+    while (i <= B * B) {
+        suma += i;
+        i += k;
+
+        if (i > num * num) {
+            i += 2;
+            num += 2;
+            k += 2;
+        }
+    }
+
+    return suma;
+}
+
+int MaximoPrimo(int n) {
+    int max_primo = 0;
+    while (n % 2 == 0) {
+        max_primo = 2;
+        n /= 2;
+    }
+    for (int i = 3; i * i <= n; i += 2) {
+        if (esPrimo(i)) {
+            while (n % i == 0) {
+                max_primo = i;
+                n /= i;
+            }
+        }
+    }
+    if (n > 2) {
+        max_primo = n;
+    }
+
+    return max_primo;
+}
+
+int TerminosCollatz(int n) {
+    int terminos = 1;
+    while (n != 1) {
+        if (n % 2 == 0)
+            n /= 2;
+        else
+            n = 3 * n + 1;
+
+        terminos++;
+    }
+    return terminos;
+}
+
+void Serie(int n) {
+    while (n != 1) {
+        cout << n << ' ';
+        if (n % 2 == 0)
+            n /= 2;
+        else
+            n = 3 * n + 1;
+    }
+    cout << " 1." << endl;
+}
+
+void encontrarSerieCollatz(int k) {
+    int longitud_max = 0, semilla_max, longitud_actual;
+
+    for (int j = 1; j < k; j++) {
+        longitud_actual = TerminosCollatz(j);
+        if (longitud_actual > longitud_max) {
+            longitud_max = longitud_actual;
+            semilla_max = j;
+        }
+    }
+
+    cout << "La serie mas larga es con la semilla: " << semilla_max << " teniendo " << longitud_max << " terminos.";
+    cout << endl;
+    cout << "La serie es: ";
+    Serie(semilla_max);
+}
+
+
+int numeroTriangular(int n) {
+    return n * (n + 1) / 2;
+}
+
+int contarDivisores(int num) {
+    int contador = 0;
+    for (int i = 1; i * i <= num; i++) {
+        if (num % i == 0) {
+            if (i * i == num) {
+                contador += 1;
+            } else {
+                contador += 2;
+            }
+        }
+    }
+    return contador;
+}
+
+void encontrarNumeroTriangular(int k) {
+    int n = 1, triangular, divisores;
+
+    while (true) {
+        triangular = numeroTriangular(n);
+        divisores = contarDivisores(triangular);
+        if (divisores > k) {
+            cout << "El numero es: " << triangular << " que tiene " << divisores << " divisores." << endl;
+            break;
+        }
+        n++;
     }
 }
